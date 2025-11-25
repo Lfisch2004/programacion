@@ -4,7 +4,6 @@ while True:
     respuesta = input("Si desea realizar todos los calculos al mismo tiempo responda si, sino responda no:")
     if respuesta == "si":
         prB.ejecutar_todo_B()
-
     elif respuesta == 'no':
         prB.menu()
     else: 
@@ -17,3 +16,4 @@ while True:
     else:
         print("respuesta invalida")
         break
+    
