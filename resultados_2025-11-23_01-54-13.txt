@@ -1,0 +1,4 @@
+MTOW: 188044
+OEW: 96100
+CU: 90257
+Peso Combustible: 69557

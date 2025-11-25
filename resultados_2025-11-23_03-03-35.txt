@@ -1,0 +1,17 @@
+Pasajeros iniciales: 300.0
+Filas base: 39
+Hileras base: 7
+Pasillos base: 2
+Filas extra: 7
+Pasajeros totales: 322
+MTOW estimado: 204245
+OEW estimado: 104017
+Carga útil: 99013
+Peso combustible: 76143
+LCC: 11297.425012478163
+LN: 6578.840380794636
+L_Cab: 35255.57833519965
+Carga alar: 668.3335215782416
+Superficie alar: 301.1402004703449
+Envergadura: 51299.044131831295
+Alargamiento: 8.89404165337738
