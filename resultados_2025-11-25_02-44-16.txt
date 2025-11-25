@@ -1,0 +1,12 @@
+=== DATOS DE ENTRADA ===
+Diámetro del fuselaje (mm): 4500.0
+Filas iniciales: 40.0
+Hileras iniciales: 7.0
+
+=== RESULTADOS ===
+Diametro propuesto (mm): 4500.0
+Filas propuestas: 40
+Hileras propuestas: 7
+Longitud de cono de cola: 11297.425012478163
+Longitud de nariz: 6578.840380794636
+Longitud de cabina: 32266.02494424932

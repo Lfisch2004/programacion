@@ -1,4 +1,6 @@
 from scipy import stats
+import numpy as np
+
 def Reglineal(Datos_X, Datos_Y):
   """
   Realiza la regresión lineal en base a los datos de entrada con la librería sklearn y devuelve la función y un analisis estadístico sobre la relación entre las variables.
@@ -23,74 +25,30 @@ def Reglineal(Datos_X, Datos_Y):
   R2 = Estadisticas.rvalue**2
 
   return(Recta_Regresion, R2, PValue, DesviacionEstandar)
-def es_float(valor):
-   try: 
-      float(valor)
-      return True
-   except:
-      return False
-def Pesos_Caracteristicos(
-        pasajeros_nuevos,
-        pasajeros_data,
-        mtow_data,
-        oew_data,
-        fw_data,
-        cu_data
-    ):
-    """
-    Calcula los pesos característicos del avión usando SOLO los datos
-    pasados como argumento. NO depende de módulos externos.
 
-    Inputs:
-        pasajeros_nuevos : valor a predecir
-        pasajeros_data   : array de pasajeros de la base
-        mtow_data        : array MTOW de la base
-        oew_data         : array OEW de la base
-        fw_data          : array fuel weight de la base
-        cu_data          : array carga útil de la base
-    """
+def RegresionLog(Datos_X, Datos_Y):
+  """
+  Realiza la regresión potenciaal en base a los datos de entrada con la librería sklearn y devuelve la función y un analisis estadístico sobre la relación entre las variables.
+  Inputs:  Datos_X - Array de 1D de datos utilizados como variable independiente en la regresión.
+           Datos_Y - Array de 1D y mismo tamaño que Datos_X de datos utilizados como variable dependiente en la regresión.
+  Outputs: Recta_Regresion - Función Lambda obtenida mediante la regresión.
+           R2 - Valor de R² para la relación de dependencia entre los Datos_X y Datos_Y
+           PValue - Valor del P value para las dos listas de datos. Nos determina la significancia de la regresión.
+           DesviacionEstandar - Estimacion del desvio estandar entre la recta real y la aproximada.
+  """
+  X_log = np.log(Datos_X) # Linealizamos los datos para poder utilizar el método de aproximación lineal con el que venimos trabajando
+  Y_log = np.log(Datos_Y) # Y = C * X**b  ->  ln(Y) = b * ln(X) + ln(C)  ->  m = b, c = ln(C)
 
-    func_MTOW = Reglineal(pasajeros_data, mtow_data)[0]
-    Nuevo_MTOW = func_MTOW(pasajeros_nuevos)
+  Estadisticas = stats.linregress(X_log, Y_log) #"Entreno" al modelo de SciPy con los datos X e Y para que haga la regresión lineal.
 
-    func_OEW = Reglineal(mtow_data, oew_data)[0]
-    Nuevo_OEW = func_OEW(Nuevo_MTOW)
+  b = Estadisticas.slope
+  log_c = Estadisticas.intercept
+  C = np.exp(log_c) # Despejamos 'C' de la linealización.
 
-    func_FW = Reglineal(mtow_data, fw_data)[0]
-    Nuevo_FW = func_FW(Nuevo_MTOW)
+  Recta_Regresion = lambda x: C * (x**b)
 
-    func_CU = Reglineal(mtow_data, cu_data)[0]
-    Nuevo_CU_Reg = func_CU(Nuevo_MTOW)
+  PValue = Estadisticas.pvalue
+  DesviacionEstandar = Estadisticas.stderr
+  R2 = Estadisticas.rvalue**2
 
-    Nuevo_CU_Dif = Nuevo_MTOW - Nuevo_OEW - Nuevo_FW
-
-    return Nuevo_MTOW, Nuevo_OEW, Nuevo_CU_Dif, Nuevo_CU_Reg
-
-def Dimensiones_Fuselaje(
-        mtow_nuevo,
-        hileras_nuevas,
-        hileras_data,
-        anchos_fus_data,
-        altos_fus_data,
-        mtow_base,
-        sw_base
-    ):
-    """
-    Calcula dimensiones del fuselaje y superficie alar usando SOLO datos
-    pasados como parámetros. NO toma nada de ningún módulo externo.
-    """
-
-    func_ancho = Reglineal(hileras_data, anchos_fus_data)[0]
-    Nuevo_Ancho = func_ancho(hileras_nuevas)
-
-    func_alto = Reglineal(hileras_data, altos_fus_data)[0]
-    Nuevo_Alto = func_alto(hileras_nuevas)
-
-    func_swal = Reglineal(mtow_base, sw_base)[0]
-    Nuevo_SupAlar = func_swal(mtow_nuevo)
-
-    Nuevo_CargaAlar = mtow_nuevo / Nuevo_SupAlar
-
-    return Nuevo_Ancho, Nuevo_Alto, Nuevo_SupAlar, Nuevo_CargaAlar
-
-
+  return(Recta_Regresion, R2, PValue, DesviacionEstandar)

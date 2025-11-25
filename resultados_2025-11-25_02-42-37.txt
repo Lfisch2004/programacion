@@ -1,0 +1,26 @@
+=== DATOS DE ENTRADA ===
+Pasajeros Iniciales: 300.0
+Filas Extra: 7.0
+Diámetro del fuselaje (mm): 4500.0
+
+=== RESULTADOS ===
+Pasajeros Iniciales: 300.0
+Filas extra: 7.0
+Filas base: 39
+Hileras: 7
+Pasillos: 2
+Filas totales: 46
+Pasajeros nuevos: 322
+MTOW: 188044
+OEW: 96100
+CU: 90257
+Peso Combustible: 69557
+Ancho de Fuselaje: 4707.862151394422
+Alto de Fuselaje: 4828.3768924302785
+Superficie Alar: 278.579560011429
+Carga Alar: 675.0100401920561
+Longitud de cono de cola: 11297.425012478163
+Longitud de nariz: 6578.840380794636
+Longitud de cabina: 35255.57833519965
+Envergadura: 49066.349269280916
+Alargamiento: 8.882712128039037
