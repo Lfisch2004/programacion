@@ -342,7 +342,7 @@ def menu():
         punto_5_B()
     else:
         print("Opción inválida")
-def ejecutar_todo_B(cant_pas_ini, filas_extra, diam_in):
+def ejecutar_todo_B(cant_pas_ini, filas_extra):
     resultados = {}
     figuras = []
     resultadosp1, figurasp1 = punto_1_B(cant_pas_ini, filas_extra)
@@ -351,9 +351,13 @@ def ejecutar_todo_B(cant_pas_ini, filas_extra, diam_in):
     resultadosp2, figurasp2 = punto_2_B(cant_pas_ini)
     MTOW = resultadosp2['MTOW [kg]']
     resultadosp3, figurasp3 = punto_3_B(MTOW, hileras)
+    Ancho = resultadosp3['Ancho de Fuselaje [mm]']
+    Alto = resultadosp3['Alto de Fuselaje [mm]']
+    diam_in = np.sqrt(Ancho*Alto)
+    a = {'Diametro de fuselaje [mm]': diam_in}
     resultadosp4, figurasp4 = punto_4_B(diam_in, filas, hileras)
     resultadosp5, figurasp5 = punto_5_B(MTOW)
-    for dic in (resultadosp1, resultadosp2, resultadosp3, resultadosp4, resultadosp5):
+    for dic in (resultadosp1, resultadosp2, resultadosp3, resultadosp4, resultadosp5, a):
         resultados.update(dic)    
     for figs in (figurasp1, figurasp2, figurasp3, figurasp4, figurasp5):
         figuras.extend(figs)

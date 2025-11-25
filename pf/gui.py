@@ -100,7 +100,7 @@ class App(tk.Tk):
                         "bd": 0, "relief": "flat", "padx": 12, "pady": 6}
 
         tk.Button(btn_frame, text="Calcular TODO", command=self.ejecutar_todo, **estilo_boton).grid(row=0, column=0, padx=10)
-        tk.Button(btn_frame, text="Calculos Especifacos", command=self.mostrar_menu, **estilo_boton).grid(row=0, column=1, padx=10)
+        tk.Button(btn_frame, text="Calculos Especificos", command=self.mostrar_menu, **estilo_boton).grid(row=0, column=1, padx=10)
         tk.Button(self, text="Guardar resultados en TXT", command=self.guardar_txt, **estilo_boton).pack(pady=10)
 
         # ------------------------------
@@ -166,8 +166,7 @@ class App(tk.Tk):
         win.configure(bg=GRIS)
 
         labels = [("Pasajeros iniciales", "cant_pas_ini"),
-                  ("Filas extra", "filas_extra"),
-                  ("Diámetro (mm)", "diam_in")]
+                  ("Filas extra", "filas_extra")]
 
         entries = []
         entry_keys = []
@@ -223,7 +222,7 @@ class App(tk.Tk):
                 messagebox.showerror("Error", "La suma filas base + filas extra excede el máximo permitido")
                 return
 
-            resultados, figuras = prB.ejecutar_todo_B(pas_ini, filas_extra, vals["diam_in"])
+            resultados, figuras = prB.ejecutar_todo_B(pas_ini, filas_extra)
 
             self.resultados_obtenidos = resultados
 
@@ -260,7 +259,7 @@ class App(tk.Tk):
                 win,
                 text=lab,
                 command=f,
-                width=32,
+                width=50,
                 height=2,
                 font=("Arial", 12, "bold"),
                 bg="#38A1DB",
@@ -281,7 +280,15 @@ class App(tk.Tk):
         self._param_win = win
         win.title(funcion.__name__)
         win.configure(bg=GRIS)
-
+        self.param_labels = {
+        "cant_pas_ini": "Pasajeros iniciales",
+        "filas_extra": "Filas extra",
+        "diam_in": "Diámetro (mm)",
+        "MTOW_in": "Peso maximo de despegue [kg]",
+        "MTOW_in5": "Peso maximo de despegue [kg]",
+        "cant_pas": "Pasajeros iniciales",
+        "filas_in": "Filas iniciales",
+    }
         entradas_meta = []
 
         params = funcion.__code__.co_varnames[:funcion.__code__.co_argcount]
@@ -289,8 +296,9 @@ class App(tk.Tk):
         for param in params:
             frame = tk.Frame(win, bg=GRIS)
             frame.pack(pady=5)
+            nombre_legible = self.param_labels.get(param, param)
+            tk.Label(frame, text=nombre_legible + ":", bg=GRIS, fg=AZUL_OSCURO).pack(side="left")
 
-            tk.Label(frame, text=param + ":", bg=GRIS, fg=AZUL_OSCURO).pack(side="left")
 
             entry = tk.Entry(frame, validate="key", validatecommand=self._vcmd)
             entry.pack(side="left", padx=5)
